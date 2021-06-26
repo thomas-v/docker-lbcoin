@@ -1,0 +1,29 @@
+version: "2"
+services:
+  php:
+    build: ./
+    ports:
+      - "8080:80"
+    links:
+      - db:db
+  db:
+    image: mariadb
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
+    environment:
+      - MARIADB_ROOT_PASSWORD=fizzbuzzMaster
+      - MARIADB_DATABASE=fizzbuzz
+      - MARIADB_USER=fizzbuzz
+      - MARIADB_PASSWORD=fizzbuzz
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: "swagger-ui"
+    ports:
+      - "8001:8080"
+    volumes:
+      - ./swagger.yaml:/api.yaml
+    environment:
+      SWAGGER_JSON: /api.yaml
+      SUPPORTED_SUBMIT_METHODS : "[]"

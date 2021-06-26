@@ -1,0 +1,127 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Fizz-buzz REST server",
+        "version": "0.1"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8080/v1",
+            "description": "Simple fizz-buzz REST server"
+        }
+    ],
+    "paths": {
+        "/generic-fizzbuzz/{int1}/{int2}/{limit}/{str1}/{str2}": {
+            "get": {
+                "description": "Returns a list of strings with numbers from 1 to limit, where: all multiples of int1 are replaced by str1, all multiples of int2 are replaced by str2, all multiples of int1 and int2 are replaced by str1str2",
+                "parameters": [
+                    {
+                        "name": "int1",
+                        "in": "path",
+                        "description": "First multiple",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "int2",
+                        "in": "path",
+                        "description": "Second multiple",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "path",
+                        "description": "Limit of the range",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "str1",
+                        "in": "path",
+                        "description": "First string",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "str2",
+                        "in": "path",
+                        "description": "Second string",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESS",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "The status of query",
+                                            "type": "string"
+                                        },
+                                        "result": {
+                                            "description": "The character string processed",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/statistics": {
+            "get": {
+                "description": "What the most frequent request has been",
+                "responses": {
+                    "200": {
+                        "description": "SUCCESS",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "The status of query",
+                                            "type": "string"
+                                        },
+                                        "result": {
+                                            "description": "The character string processed",
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "query": {
+                                                        "type": "string"
+                                                    },
+                                                    "nb": {
+                                                        "type": "integer"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
